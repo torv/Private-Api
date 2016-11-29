@@ -10,8 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.torv.adam.private_api.MainActivity">
 
-    <TextView
+    <Button
+        android:onClick="go"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerInParent="true"
+        android:text="Go"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -1,14 +1,10 @@
 package com.torv.adam.private_api;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.torv.adam.priapi.Instagram;
-import com.torv.adam.priapi.SignatureUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.torv.adam.priapi.Instagram2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void go(View view) {
-        new Instagram().login("username", "password");
+        new Instagram2().login("username", "password");
+    }
+
+    public void logout(View view) {
+        new Instagram2().logout();
     }
 }

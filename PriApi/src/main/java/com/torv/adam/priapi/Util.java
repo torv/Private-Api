@@ -20,7 +20,8 @@ public class Util {
         headers.put("X-IG-Connection-Type", "WIFI");
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         headers.put("Accept-Language", "en-US");
-        headers.put("User-Agent", "Instagram " + Constants.VERSION +" Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)");
+        String userAgent = "Instagram " + Constants.VERSION +" Android (23/6.0.1; 640dpi; 1440x2560; samsung; SM-G9200; zerofltechn; samsungexynos7420; zh_CN)";
+        headers.put("User-Agent", userAgent);
 
         return headers;
     }

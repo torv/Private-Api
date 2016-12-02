@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -88,6 +89,12 @@ public class Instagram {
             @Override
             public void onErrorResponse(VolleyError error) {
                 L.d(error.getLocalizedMessage());
+                try {
+                    String str = new String(error.networkResponse.data, "GB2312");
+                    L.d(str);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         }){
             @Override

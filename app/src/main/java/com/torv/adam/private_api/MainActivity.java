@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.torv.adam.priapi.Instagram2;
+import com.torv.adam.priapi.Instagram;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void go(View view) {
-        new Instagram2().login("username", "password");
+        Instagram.instance.login("username", "password");
     }
 
     public void logout(View view) {
-        new Instagram2().logout();
+        Instagram.instance.logout();
     }
 }

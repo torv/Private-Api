@@ -21,17 +21,31 @@ import java.util.UUID;
  * Created by AdamLi on 2016/12/2.
  */
 
-public class Instagram2 {
+public enum Instagram {
+    instance;
+
+    public LogedInUser mUser = new LogedInUser();
 
     public void login(final String username, final String passwd) {
         CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
         cookieManager.getCookieStore().removeAll();
 
-        String url = Constants.API_URL + "accounts/login/";
+        final String url = Constants.API_URL + "accounts/login/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 L.d(response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject userJson = jsonObject.optJSONObject("logged_in_user");
+                    if(null != userJson) {
+                        mUser.username = userJson.optString("username");
+                        mUser.pk = userJson.optLong("pk");
+                        getUserPost();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -78,7 +92,30 @@ public class Instagram2 {
     }
 
     public void getUserPost() {
-        String url = Constants.API_URL + "feed/user/" + "userid";
+        String url = Constants.API_URL + "feed/user/" + mUser.pk;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                L.d(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                L.e(error.getLocalizedMessage());
+                try {
+                    String str = new String(error.networkResponse.data, "GB2312");
+                    L.e(str);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return Util.addCommonHeaders(null);
+            }
+        };
+        VolleyWrapper.instance.add(stringRequest);
     }
 
     public void logout() {

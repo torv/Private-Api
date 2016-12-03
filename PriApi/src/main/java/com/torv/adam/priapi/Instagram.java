@@ -27,8 +27,7 @@ public enum Instagram {
     public LogedInUser mUser = new LogedInUser();
 
     public void login(final String username, final String passwd) {
-        CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
-        cookieManager.getCookieStore().removeAll();
+        VolleyWrapper.instance.clearCookie();
 
         final String url = Constants.API_URL + "accounts/login/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
